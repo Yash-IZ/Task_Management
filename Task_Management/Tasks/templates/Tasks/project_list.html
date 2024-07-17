@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Projects</h1>
+    <ul>
+        {% for project in projects %}
+            <li>
+                <a href="{% url 'project_detail' project.id %}">{{ project.title }}</a>
+                <ul>
+                    <li><a href="{% url 'task_list' project.id %}">View Tasks</a></li>
+                    {% if request.user == project.manager %}
+                        <li><a href="{% url 'create_task' project.id %}">Create Task</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

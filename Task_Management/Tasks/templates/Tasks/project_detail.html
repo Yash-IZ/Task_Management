@@ -1,0 +1,23 @@
+<!-- Task_Management/templates/Tasks/project_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ project.title }}</h1>
+    <p>{{ project.description }}</p>
+    <p>Manager: {{ project.manager.name }}</p>
+    <p>Members:</p>
+    <ul>
+        {% for member in project.members.all %}
+            <li>{{ member.name }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Task Options</h2>
+    <ul>
+        <li><a href="{% url 'task_list' project.id %}">View Tasks</a></li>
+        {% if request.user == project.manager %}
+            <li><a href="{% url 'create_task' project.id %}">Create Task</a></li>
+        {% endif %}
+    </ul>
+    <!-- Additional project details and tasks can go here -->
+{% endblock %}

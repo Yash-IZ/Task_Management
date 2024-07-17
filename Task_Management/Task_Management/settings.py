@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main_app',
     'Users',
+    'Tasks',
 ]
 
 MIDDLEWARE = [
@@ -88,6 +89,13 @@ DATABASES ={ 'default':
 
 
 AUTH_USER_MODEL = 'Users.CustomUser'
+
+
+
+
+LOGIN_URL = '/user/login/'
+LOGIN_REDIRECT_URL = '/'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -148,3 +156,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

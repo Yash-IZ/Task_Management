@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Task Detail</h1>
+  <p>Title: {{ task.title }}</p>
+  <p>Description: {{ task.description }}</p>
+  <p>Status: {% if task.completed %}Completed{% else %}Pending{% endif %}</p>
+  <p>Assigned To: {{ task.assigned_to.username }}</p>
+  <p>Project: <a href="{% url 'project_detail' task.project.id %}">{{ task.project.title }}</a></p>
+
+  {% if request.user == task.project.manager or request.user == task.assigned_to %}
+    {% if not task.completed %}
+      <form method="post" action="{% url 'complete_task' task.id %}">
+        {% csrf_token %}
+        <button type="submit">Mark as Complete</button>
+      </form>
+    {% endif %}
+  {% endif %}
+  
+  <a href="{% url 'update_task' task.id %}">Update Task</a>
+{% endblock %}

@@ -1,14 +1,19 @@
-<!-- templates/main_app/home.html -->
+<!-- main_app/templates/main_app/home.html -->
 
-{% extends 'base.html' %}
-
-{% block title %}Home{% endblock %}
+{% extends "base.html" %}
 
 {% block content %}
-    <h2>Home Page</h2>
+    <h1>Welcome to the Task Management System</h1>
     {% if user.is_authenticated %}
-        <p>Welcome, {{ user.username }}!</p>
+        <p>Hello, {{ user.username }}!</p>
     {% else %}
-        <p>Welcome, guest!</p>
+        <p>Please <a href="{% url 'login' %}">login</a> or <a href="{% url 'register' %}">register</a>.</p>
     {% endif %}
+    <h2>Your Projects</h2>
+    <a href="{% url 'create_project' %}">Create New Project</a>
+    <ul>
+        {% for project in projects %}
+            <li><a href="{% url 'project_detail' project.id %}">{{ project.title }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
